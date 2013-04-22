@@ -54,7 +54,7 @@ class TestQueue:
             raise ValueError
         return [mess]
 
-    def delete(self, message):
+    def delete_message(self, message):
         print "deleted", pprint.pformat(message.get_body())
 
 def setUp(test):

@@ -69,12 +69,12 @@ def sequential(args=None):
                 args, kw = json.loads(data)
                 worker(*args, **kw)
             except TransientError:
-                pass
+                continue
             except Exception:
                 logger.exception("Handling a message")
                 message_logger.info(data)
-            else:
-                queue.delete(message)
+
+            queue.delete_message(message)
         else:
             time.sleep(poll)
 

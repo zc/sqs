@@ -200,6 +200,7 @@ logged:
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type(s) for +: 'int' and 'unicode'
+    deleted '[[1, 2, ""], {}]'
 
     >>> with open("messages.log") as f:
     ...     print f.read()
