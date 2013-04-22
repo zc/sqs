@@ -17,6 +17,8 @@ install_requires = ['setuptools', 'boto', 'ZConfig']
 extras_require = dict(test=['zope.testing', 'manuel', 'mock', 'zc.thread'])
 
 entry_points = """
+[console_scripts]
+sequential-worker = zc.sqs:sequential
 """
 
 from setuptools import setup
