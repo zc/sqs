@@ -1,0 +1,1 @@
+./src/zc/sqs/README.rst
