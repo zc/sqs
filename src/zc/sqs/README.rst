@@ -210,3 +210,11 @@ logged:
 .. cleanup
 
    >>> adder.queue.queue.put('STOP'); time.sleep(.01)
+
+Changes
+=======
+
+0.1.0 (2013-04-2?)
+==================
+
+Initial release.
