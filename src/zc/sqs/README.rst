@@ -207,6 +207,34 @@ logged:
     [[1, 2, ""], {}]
     <BLANKLINE>
 
+Silencing tests
+===============
+
+Sometimes, you don't want the testing infrastructure to output
+information when sending messages.  There testing ``setUp`` method
+adds an ``sqs_queues`` attribute to globals.  You can call
+``be_silent`` to make it stop outputting infomation:
+
+    >>> sqs_queues.be_silent()
+
+After calling this, any subsequent queues will be quiet:
+
+    >>> queue = zc.sqs.Queue("quiet")
+    >>> queue(1)
+
+You can get the queued data:
+
+    >>> [m.get_body() for m in sqs_queues.get_queue("quiet").get_messages()]
+    ['[[1], {}]']
+
+You can switch back to being noisy:
+
+    >>> sqs_queues.be_silent()
+
+    >>> queue = zc.sqs.Queue("loud")
+    >>> queue(1)
+
+
 .. cleanup
 
    >>> adder.queue.queue.put('STOP'); time.sleep(.01)

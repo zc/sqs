@@ -16,30 +16,39 @@ class Queues:
     def __init__(self):
         self.queues = {}
 
+    silent = False
+    def be_silent(self, v=True):
+        self.silent = True
+
     def connect_to_region(self, region):
-        print ("Connected to region %s." % region)
+        if not self.silent:
+            print ("Connected to region %s." % region)
         return self
 
     def get_queue(self, name):
         try:
             return self.queues[name]
         except KeyError:
-            self.queues[name] = TestQueue(name)
+            self.queues[name] = TestQueue(name, self.silent)
 
         return self.queues[name]
 
 class TestQueue:
 
-    def __init__(self, name):
+    def __init__(self, name, silent):
         self.name = name
-
+        self.silent = silent
 
     def write(self, message):
         try:
             self.queue.put(message)
             time.sleep(.01)
         except AttributeError:
-            pprint.pprint(json.loads(message.get_body()))
+            if self.silent:
+                self.queue = Queue.Queue()
+                self.queue.put(message)
+            else:
+                pprint.pprint(json.loads(message.get_body()))
 
         return True
 
@@ -59,8 +68,7 @@ class TestQueue:
 
 def setUp(test):
     setupstack.setUpDirectory(test)
-    queues = Queues()
-
+    test.globs['sqs_queues'] = queues = Queues()
     setupstack.context_manager(
         test, mock.patch("boto.sqs.connect_to_region",
                          side_effect=queues.connect_to_region))
