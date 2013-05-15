@@ -14,12 +14,17 @@ message_logger = logging.getLogger(__name__ + ".messages")
 class TransientError(Exception):
     "A job failed, but should be retried."
 
+class NonExistentQueue(Exception):
+    """An SQS queue with the specified name does not exist"""
+
 class Queue:
 
     def __init__(self, name, region="us-east-1"):
         self.name = name
         self.connection = boto.sqs.connect_to_region(region)
         self.queue = self.connection.get_queue(name)
+        if self.queue is None:
+            raise NonExistentQueue(name)
 
     def __call__(self, *args, **kw):
         message = boto.sqs.message.Message()
