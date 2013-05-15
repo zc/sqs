@@ -11,7 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-name, version = 'zc.sqs', '0.1.1dev'
+name, version = 'zc.sqs', '0.2.0'
 
 install_requires = ['setuptools', 'boto', 'ZConfig']
 extras_require = dict(test=['zope.testing', 'manuel', 'mock', 'zc.thread'])
