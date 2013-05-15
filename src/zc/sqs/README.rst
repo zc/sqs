@@ -251,10 +251,13 @@ You can switch back to being noisy:
 Changes
 =======
 
-0.2.0 (2013-05-15)
+0.2.1 (2013-05-15)
 ==================
 
 - Better error handling when SQS queues don't exist.
+
+0.2.0 (2013-05-15)
+==================
 
 - A new silent mode for test queues.
 
