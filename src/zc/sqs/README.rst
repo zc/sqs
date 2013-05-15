@@ -22,7 +22,16 @@ To send work to workers, instantiate a Queue:
     Connected to region us-east-1.
 
 The SQS queue must already exist.  Creating queues is outside the
-scope of these APIs.
+scope of these APIs.  Trying to create a Queue instance with a
+nonexistent queue name will result in an exception being raised.
+
+    >>> import mock
+    >>> with mock.patch("boto.sqs.connect_to_region") as conn:
+    ...     conn().get_queue.return_value = None
+    ...     zc.sqs.Queue("nonexistent")
+    Traceback (most recent call last):
+    ...
+    NonExistentQueue: nonexistent
 
 To place data in the queue, you call it.  You can pass positional,
 and/or keyword arguments.
