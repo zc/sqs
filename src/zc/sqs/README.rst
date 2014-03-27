@@ -71,7 +71,7 @@ sequential
    The sequential container pulls requests from an SQS queue and hands
    them to a worker, one at a time.
 
-   This is a script entry point and acceps an argument list,
+   This is a script entry point and accepts an argument list,
    containing the path to an ini file.
 
 test
@@ -252,16 +252,16 @@ Changes
 =======
 
 0.2.1 (2013-05-15)
-==================
+------------------
 
 - Better error handling when SQS queues don't exist.
 
 0.2.0 (2013-05-15)
-==================
+------------------
 
 - A new silent mode for test queues.
 
 0.1.0 (2013-04-23)
-==================
+------------------
 
 Initial release.
