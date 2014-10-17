@@ -245,6 +245,8 @@ You can switch back to being noisy:
 Changes
 =======
 
+- Use long polling instead of a configurable polling interval.
+
 0.2.1 (2013-05-15)
 ------------------
 
