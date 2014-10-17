@@ -47,7 +47,6 @@ def sequential(args=None):
     name = container.pop('queue')
     region = container.pop('region', 'us-east-1')
     worker = container.pop('worker')
-    poll = float(container.pop('poll', 10))
     ZConfig.configureLoggers(container.pop('loggers'))
 
     if container:
@@ -66,7 +65,7 @@ def sequential(args=None):
     queue = connection.get_queue(name)
 
     while 1:
-        rs = queue.get_messages()
+        rs = queue.get_messages(wait_time_seconds=20)
         if len(rs):
             message = rs[0]
             data = message.get_body()
@@ -80,8 +79,3 @@ def sequential(args=None):
                 message_logger.info(data)
 
             queue.delete_message(message)
-        else:
-            time.sleep(poll)
-
-
-

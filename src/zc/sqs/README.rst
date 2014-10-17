@@ -72,7 +72,8 @@ sequential
    them to a worker, one at a time.
 
    This is a script entry point and accepts an argument list,
-   containing the path to an ini file.
+   containing the path to an ini file.  It uses "long polling" to loop
+   efficiently.
 
 test
    The test container is used for writing tests.  It supports
@@ -89,13 +90,6 @@ container
 
   queue
      The name of an sqs queue to listen to.
-
-  poll (optional)
-     A floating point number of seconds to sleep when there are no
-     messages in the queue. This is used by the sequential container.
-     (The testing container just waits on an in-memory Python queue.)
-
-     This defaults to 30 seconds.
 
   loggers
      A ZConfig-based logger configuration string.

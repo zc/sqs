@@ -52,7 +52,7 @@ class TestQueue:
 
         return True
 
-    def get_messages(self):
+    def get_messages(self, wait_time_seconds=None):
         try:
             queue = self.queue
         except AttributeError:
