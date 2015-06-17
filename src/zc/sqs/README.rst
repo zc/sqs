@@ -28,7 +28,7 @@ nonexistent queue name will result in an exception being raised.
     >>> import mock
     >>> with mock.patch("boto.sqs.connect_to_region") as conn:
     ...     conn().get_queue.return_value = None
-    ...     zc.sqs.Queue("nonexistent")
+    ...     zc.sqs.Queue("nonexistent") # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
     ...
     NonExistentQueue: nonexistent
@@ -37,7 +37,7 @@ To place data in the queue, you call it.  You can pass positional,
 and/or keyword arguments.
 
     >>> queue(1, 2, x=3)
-    [[1, 2], {u'x': 3}]
+    [[1, 2], {'x': 3}]
 
 In this example, we're running in test mode.  In test mode, data are
 simply echoed back (unless we wire up a worker, as will be discussed
@@ -147,7 +147,7 @@ Now, we'll define a container configuration::
 .. -> ini
 
     >>> with open('ini', 'w') as f:
-    ...     f.write(ini)
+    ...     _ = f.write(ini)
 
 Now, we'll run the container.
 
@@ -202,11 +202,11 @@ logged:
     ERROR zc.sqs Handling a message
     Traceback (most recent call last):
     ...
-    TypeError: unsupported operand type(s) for +: 'int' and 'unicode'
+    TypeError: unsupported operand type(s) for +: 'int' and '...'
     deleted '[[1, 2, ""], {}]'
 
     >>> with open("messages.log") as f:
-    ...     print f.read()
+    ...     print(f.read())
     [[1, 2, ""], {}]
     <BLANKLINE>
 
@@ -240,10 +240,13 @@ You can switch back to being noisy:
 
 .. cleanup
 
-   >>> adder.queue.queue.put('STOP'); time.sleep(.01)
+   >>> print('Stopping'); adder.queue.queue.put('STOP'); time.sleep(.01) # doctest: +ELLIPSIS
+   Stopping...
 
 Changes
 =======
+
+- Python 3 support.
 
 0.3.0 (2014-10-17)
 ------------------

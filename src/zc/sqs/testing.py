@@ -1,11 +1,18 @@
+from __future__ import print_function
 
 from zope.testing import setupstack
 
-import ConfigParser
+try:
+    import ConfigParser
+except ImportError:
+    import configparser as ConfigParser
 import json
 import mock
 import pprint
-import Queue
+try:
+    import Queue
+except ImportError:
+    import queue as Queue
 import time
 import zc.sqs
 
@@ -64,7 +71,7 @@ class TestQueue:
         return [mess]
 
     def delete_message(self, message):
-        print "deleted", pprint.pformat(message.get_body())
+        print("deleted", pprint.pformat(message.get_body()))
 
 def setUp(test):
     setupstack.setUpDirectory(test)
