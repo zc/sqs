@@ -1,5 +1,9 @@
+from __future__ import print_function
 
-import ConfigParser
+try:
+    import ConfigParser
+except ImportError:
+    import configparser as ConfigParser
 import boto.sqs
 import boto.sqs.message
 import json
@@ -50,7 +54,7 @@ def sequential(args=None):
     ZConfig.configureLoggers(container.pop('loggers'))
 
     if container:
-        print "Unexpected container options", container
+        print("Unexpected container options", container)
 
     if parser.has_section('worker'):
         worker_options = dict(parser.items('worker'))

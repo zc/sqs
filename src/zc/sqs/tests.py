@@ -11,11 +11,12 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-from zope.testing import setupstack
+from zope.testing import setupstack, renormalizing
 import logging
 import manuel.capture
 import manuel.doctest
 import manuel.testing
+import re
 import unittest
 import zc.sqs.testing
 
@@ -32,7 +33,11 @@ def setUp(test):
 def test_suite():
     return unittest.TestSuite((
         manuel.testing.TestSuite(
-            manuel.doctest.Manuel() + manuel.capture.Manuel(),
+            manuel.doctest.Manuel(
+                checker = renormalizing.OutputChecker([
+                    (re.compile("u'"), "'"),
+                    ]),
+                ) + manuel.capture.Manuel(),
             'README.rst',
             setUp=zc.sqs.testing.setUp, tearDown=setupstack.tearDown,
             ),
