@@ -246,6 +246,9 @@ You can switch back to being noisy:
 Changes
 =======
 
+1.0.0
+-----
+
 - Python 3 support.
 
 0.3.0 (2014-10-17)
